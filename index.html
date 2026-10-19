@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100d16">
+<title>🖤​Feliz Aniversario🖤​</title>
+<style>
+:root{--fondo:#100d16;--panel:#191321;--morado:#8d70b2;--lavanda:#cbb8e8;--blanco:#f7f3fb;--suave:#b9afc5;--borde:rgba(203,184,232,.28)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:28px 16px;display:grid;place-items:center;background:radial-gradient(ellipse at top,rgba(105,70,137,.22),transparent 55%),var(--fondo);color:var(--blanco);font-family:Georgia,"Times New Roman",serif}
+.tarjeta{width:min(100%,430px);padding:34px 25px 28px;text-align:center;background:linear-gradient(160deg,rgba(35,26,46,.96),rgba(19,15,25,.98));border:1px solid var(--borde);border-radius:22px;box-shadow:0 20px 70px rgba(0,0,0,.38)}
+.simbolo{color:var(--lavanda);font-size:24px;margin-bottom:18px}
+.etiqueta{margin:0 0 12px;color:var(--lavanda);font-family:Arial,sans-serif;font-size:10px;letter-spacing:.28em;text-transform:uppercase}
+h1{margin:0;font-size:clamp(30px,8vw,42px);font-weight:normal;line-height:1.12}
+.subtitulo{margin:17px auto 25px;max-width:290px;color:var(--suave);font-size:16px;line-height:1.7}
+.adorno{width:70px;height:1px;margin:0 auto 24px;background:var(--morado)}
+.boton{display:inline-block;padding:13px 22px;border:1px solid var(--morado);border-radius:999px;color:var(--blanco);background:rgba(141,112,178,.12);font-family:PT,Serif;font-size:12px;letter-spacing:.08em;cursor:pointer;transition:background 180ms ease,transform 180ms ease}
+.boton:hover{background:rgba(141,112,178,.28);transform:translateY(-1px)}
+.reproductor{margin-top:24px;overflow:hidden;border-radius:12px;text-align:left}
+.reproductor iframe{display:block;width:100%;height:152px;border:0}
+.nota{margin:20px 0 0;color:var(--suave);font-family:Arial,sans-serif;font-size:11px;line-height:1.6}
+.pie{margin-top:25px;color:var(--lavanda);font-size:13px;letter-spacing:.06em}
+.oculto{display:none}
+</style>
+</head>
+<body>
+<main class="tarjeta">
+  <div class="simbolo" aria-hidden="true">ღ</div>
+  <p class="etiqueta">por nuestro primer añito juntos...</p>
+  <h1>Tengo una canción para ti.</h1>
+  <p class="subtitulo">Sé que te he dedicado muchas hasta ahora. Pero esta creo que es un poquito más nosotros. Estar contigo se siente como esta canción.</p> 
+<p>¿Crees que en una boda quedaría bien?</p>
+  <div class="adorno"></div>
+  <button class="boton" id="botonMusica" type="button">♡ &nbsp; escúchala</button>
+  <section class="reproductor oculto" id="reproductor" aria-label="Reproductor de Spotify">
+    <iframe id="spotify" title="Canción en Spotify" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </section>
+  <p class="nota" id="nota">Si me tienes delante dame un abrazo ¿no?</p>
+  <div class="pie">♡te amo · 25/10/25♡</div>
+</main>
+<script>
+ const SPOTIFY_LINK = "https://open.spotify.com/track/6ZH1yeWUf3Xp2XO0EZk91i";;
+
+const boton = document.getElementById("botonMusica");
+const reproductor = document.getElementById("reproductor");
+const spotify = document.getElementById("spotify");
+const nota = document.getElementById("nota");
+
+
+boton.addEventListener("click", () => {
+  const enlace = SPOTIFY_LINK.trim();
+
+  if (!enlace || enlace.includes("PEGA_AQUI")) {
+    nota.textContent = "Ups no carga, igual la he cagado en algo...";
+    return;
+  }
+
+  const cancion = enlace
+    .split("?")[0]
+    .replace("/intl-es/", "/")
+    .replace("open.spotify.com/", "open.spotify.com/embed/");
+
+  spotify.src = `${cancion}?utm_source=generator&theme=0`;
+  reproductor.classList.remove("oculto");
+
+  boton.textContent = "escúchala";
+  nota.textContent = "Dale al play y piensa en mí un ratito.";
+});
+</script>
+</body>
+</html>
