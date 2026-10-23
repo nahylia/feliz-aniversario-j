@@ -38,9 +38,24 @@
         var(--fondo);
       color: var(--blanco);
       font-family: Georgia, "Times New Roman", serif;
+
+      /* Mantiene las capas del fondo ordenadas */
+      isolation: isolate;
+    }
+
+    /* Fondo de estrellas: detrás de toda la tarjeta */
+    #estrellas {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .tarjeta {
+      position: relative;
+      z-index: 1;
+
       width: 100%;
       max-width: 430px;
       min-width: 0;
@@ -198,25 +213,16 @@
       }
     }
 
-    /* Estrellitas flotantes de fondo */
-    #estrellas {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    /* Estrellitas flotantes */
     .estrella {
       position: absolute;
       display: block;
-      width: 2px;
-      height: 2px;
       border-radius: 50%;
       background: #e5d6ff;
       opacity: 0;
       box-shadow: 0 0 5px rgba(203, 184, 232, 0.45);
       animation: flotarEstrella linear infinite;
+      will-change: transform, opacity;
     }
 
     @keyframes flotarEstrella {
@@ -226,15 +232,15 @@
       }
 
       15% {
-        opacity: 0.38;
+        opacity: 0.3;
       }
 
       50% {
-        opacity: 0.65;
+        opacity: 0.55;
       }
 
       85% {
-        opacity: 0.25;
+        opacity: 0.2;
       }
 
       100% {
@@ -247,6 +253,7 @@
       .estrella {
         animation: none;
         opacity: 0.25;
+        will-change: auto;
       }
     }
   </style>
@@ -254,7 +261,6 @@
 
 <body>
 
-  <!-- Fondo de estrellitas -->
   <div id="estrellas" aria-hidden="true"></div>
 
   <main class="tarjeta">
@@ -361,21 +367,23 @@
     });
   </script>
 
-  <!-- Animación de las estrellitas -->
+  <!-- Generación de las estrellitas -->
   <script>
     (() => {
       const fondo = document.getElementById("estrellas");
 
       if (!fondo) return;
 
-      const cantidad = 38;
+      const cantidad = 85;
 
       for (let i = 0; i < cantidad; i++) {
         const estrella = document.createElement("span");
 
         estrella.className = "estrella";
 
-        const tamano = Math.random() < 0.8 ? 2 : 3;
+        const aleatorio = Math.random();
+        const tamano = aleatorio < 0.75 ? 2 :
+                       aleatorio < 0.95 ? 3 : 4;
         const duracion = 18 + Math.random() * 22;
 
         estrella.style.left = `${Math.random() * 100}%`;
@@ -392,4 +400,3 @@
 
 </body>
 </html>
-
